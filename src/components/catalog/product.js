@@ -1,5 +1,5 @@
 import React from 'react';
-import LinesEllipsis from 'react-lines-ellipsis';
+import Truncate from 'react-truncate';
 
 function Product (props) {
     var price;
@@ -12,7 +12,7 @@ function Product (props) {
     }
 
     if (props.discount !== 0) {
-        discount = <span className="discountPercent">{props.discount}</span>
+        discount = <span className="discountPercent">{props.discount}%</span>
     }
     return (
     <div className="productItem">
@@ -22,13 +22,12 @@ function Product (props) {
         </div>
         <div className="productInfo">
             <p className="productName">
-                <LinesEllipsis
-                    text={props.name}
-                    maxLine='2'
-                    ellipsis="..."
-                    trimRight
-                    basedOn='letters'
-                />
+                <Truncate
+                lines={2}
+                ellipsis={<span>...</span>}
+                >
+                    {props.name}
+                </Truncate>
             </p>
             {price}
             <div className="addToBag">Agregar al carrito</div>
