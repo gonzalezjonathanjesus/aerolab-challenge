@@ -1,11 +1,10 @@
 import { 
-    FETCH_PRODUCTS,
     FETCHING_PRODUCTS,
     FETCH_SUCCESS,
-    FETCH_ERROR,
+    FETCH_FAILURE,
     ADD_PRODUCT_TO_BAG,
     REMOVE_PRODUCT_FROM_BAG 
-} from '../actions/actionTypes';
+} from '../constants/actionTypes';
 
 const initialState = {
     header: {
@@ -16,10 +15,11 @@ const initialState = {
         }
     },
     catalog: {
+        isLoading: false,
         productList: [],
         page: 1,
         page_count: 1,
-        error: null
+        error: false
     }
 }
 export default function rootReducer(state = initialState, action) {
@@ -28,25 +28,28 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 catalog: {
+                    ...state.catalog,
                     isLoading: true
                 }
             };
+
         case FETCH_SUCCESS:
             return {
                 ...state,
                 catalog: {
                     ...state.catalog,
                     isLoading: false,
-                    productList: [...state.catalog.productList, action.payload]
+                    productList: action.payload,
+                    error: false
                 }
             };
-        case FETCH_ERROR:
+        case FETCH_FAILURE:
             return {
                 ...state,
                 catalog: {
                     ...state.catalog,
                     isLoading: false,
-                    error: action.payload.error
+                    error: action.payload
                 }
             };
         default:

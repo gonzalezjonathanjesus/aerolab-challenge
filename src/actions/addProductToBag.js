@@ -1,6 +1,8 @@
-import ADD_PRODUCT_TO_BAG from './actionTypes';
+import ADD_PRODUCT_TO_BAG from '../constants/actionTypes';
 
-export const addProductToBag = {
-    type: ADD_PRODUCT_TO_BAG,
-    payload
+export const addProductToBag = payload => {
+    return {
+        type: ADD_PRODUCT_TO_BAG,
+        payload
+    }
 }

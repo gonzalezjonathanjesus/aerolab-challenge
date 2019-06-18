@@ -1,6 +1,6 @@
-import { FETCH_PRODUCTS, FETCHING_PRODUCTS, FETCH_SUCCESS, FETCH_FAILURE } from './actionTypes';
+import { FETCH_PRODUCTS, FETCHING_PRODUCTS, FETCH_SUCCESS, FETCH_FAILURE } from './../constants/actionTypes';
 
-export const fetchProducts = () => {
+/*const fetchProducts = () => {
     return dispatch => {
         dispatch(fetchingProducts());
         fetch('https://challenge-api.aerolab.co/products')
@@ -8,25 +8,29 @@ export const fetchProducts = () => {
         .then((products) => dispatch(fetchSuccess(products)))
         .catch(() => dispatch(fetchFailure(error)));
     }
-};
+};*/
 
-const fetchingProducts = () => ({ 
-    type: FETCHING_PRODUCTS,
-    payload: {
-        isLoading: true
-    }
+const fetchProducts = () => ({
+    type: FETCH_PRODUCTS,
 });
 
-const fetchSucess = productList => ({
+const fetchingProducts = () => ({
+    type: FETCHING_PRODUCTS
+});
+
+const fetchSuccess = payload => ({
     type: FETCH_SUCCESS,
-    payload: {
-        productList
-    }
+    payload
 });
 
-const fetchFailure = error => ({
+const fetchFailure = payload => ({
     type: FETCH_FAILURE,
-    payload: {
-        error
-    }
+    payload
 });
+
+export {
+    fetchProducts,
+    fetchingProducts,
+    fetchSuccess,
+    fetchFailure
+};

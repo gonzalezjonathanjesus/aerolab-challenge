@@ -46,6 +46,7 @@
 }
 
 .catalog .productItem .productInfo p:first-child {
+    height: 2.82em;
     margin-bottom: 3.2vw;
     font-size: 14px;
     line-height: 20px;
