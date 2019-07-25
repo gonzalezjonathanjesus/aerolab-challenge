@@ -11,6 +11,7 @@ const StyledTitle = styled.div`
   width: 100%;
   padding: 4.933vw 4.267vw;
   padding-bottom: 4.267vw;
+  box-sizing: border-box;
   font-family: Roboto;
   font-weight: 500;
   font-size: 6.4vw;

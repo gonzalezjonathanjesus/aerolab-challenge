@@ -74,9 +74,7 @@ class Container extends Component {
           if (product.id === productId) {
             currentCant = product.cant;
             currentPrice = product.price;
-            console.log("cant");
-            console.log(cant);
-            product.cant = cant;
+            product.cant = parseInt(cant);
             return product;
           } else {
             return product;
@@ -101,7 +99,7 @@ class Container extends Component {
     if (productToAdd) {
       const newProductList = this.state.shoppingCart.productList.map(product => {
         if (product.id === productId) {
-          product.cant += 1;
+          product.cant = parseInt(product.cant + 1);
           return product;
         } else {
           return product;
@@ -147,7 +145,7 @@ class Container extends Component {
         const newProductList = this.state.shoppingCart.productList.map(
           product => {
             if (product.id === productId) {
-              product.cant -= 1;
+              product.cant = parseInt(product.cant - 1);
               return product;
             } else {
               return product;
