@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { findById } from "./../../../utils/findById"
 import styled from "styled-components";
-import Product from "./product";
+import  { ProductItem } from "./ProductItem";
 //import Card from "react-bootstrap/Card";
 
 const StyledCatalog = styled.div`
@@ -28,7 +29,7 @@ const StyledProductList = styled.div`
   box-sizing: border-box;
 `;
 
-class Catalog extends Component {
+export class Catalog extends Component {
   constructor() {
     super();
     this.counter = 0;
@@ -44,12 +45,12 @@ class Catalog extends Component {
         <StyledTitle>Almacén</StyledTitle>
         <StyledProductList>
           {this.props.productList.map(product => {
-            let isInShoppingCart = this.props.findProductById(
+            let isInShoppingCart = findById(
               this.props.shoppingCart.productList,
               product.id
             );
             return (
-              <Product
+              <ProductItem
                 key={product.id}
                 id={product.id}
                 photo={product.photo}
@@ -78,5 +79,3 @@ class Catalog extends Component {
     return this.props.loading ? this.loadingMessage() : this.listProducts();
   }
 }
-
-export default Catalog;

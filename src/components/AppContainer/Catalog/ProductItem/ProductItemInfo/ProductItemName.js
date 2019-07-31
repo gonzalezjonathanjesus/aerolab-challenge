@@ -7,9 +7,10 @@ const StyledProductName = styled.p`
   margin-bottom: 3.2vw;
   font-size: 3.733vw;
   line-height: 5.333vw;
+  text-align: center;
 `;
 
-const ProductName = props => {
+export const ProductItemName = props => {
   return (
     <StyledProductName>
       <Truncate lines={2} ellipsis={<span>...</span>}>
@@ -18,5 +19,3 @@ const ProductName = props => {
     </StyledProductName>
   );
 };
-
-export default ProductName;

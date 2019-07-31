@@ -25,7 +25,7 @@ const StyledDiscount = styled.span`
   background-color: ${props => props.primaryColor};
 `;
 
-const ProductPhoto = props => {
+export const ProductItemPhoto = props => {
   return (
     <StyledPhoto>
       <StyledPhotoImg src={props.photo} alt={props.name} />
@@ -37,5 +37,3 @@ const ProductPhoto = props => {
     </StyledPhoto>
   );
 };
-
-export default ProductPhoto;

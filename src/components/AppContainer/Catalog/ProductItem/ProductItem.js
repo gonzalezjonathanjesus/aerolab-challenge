@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components"
-import ProductPhoto from "./productPhoto";
-import ProductInfo from "./productInfo";
+import { ProductItemPhoto } from "./ProductItemPhoto";
+import { ProductItemInfo } from "./ProductItemInfo";
 
 const StyledProduct = styled.div`
   width: 43.73vw;
@@ -11,18 +11,19 @@ const StyledProduct = styled.div`
   background: #ffffff;
   box-shadow: 0 0 0.966vw 0 rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
+  text-align: center;
 `;
 
-const Product = props => {
+export const ProductItem = props => {
   return (
     <StyledProduct>
-      <ProductPhoto
+      <ProductItemPhoto
         primaryColor={props.primaryColor}
         discount={props.discount}
         photo={props.photo}
         name={props.name}
       />
-      <ProductInfo
+      <ProductItemInfo
         primaryColor={props.primaryColor}
         id={props.id}
         discount={props.discount}
@@ -38,5 +39,3 @@ const Product = props => {
     </StyledProduct>
   );
 };
-
-export default Product;

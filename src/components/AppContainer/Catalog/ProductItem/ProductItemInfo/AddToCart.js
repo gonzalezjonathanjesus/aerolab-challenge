@@ -40,7 +40,7 @@ const StyledCantInput = styled.input`
   color: ${props => props.primaryColor};
 `;
 
-const AddToCart = props => {
+export const AddToCart = props => {
   if (props.cant !== 0) {
     return (
       <div>
@@ -75,5 +75,3 @@ const AddToCart = props => {
     );
   }
 };
-
-export default AddToCart;

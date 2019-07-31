@@ -68,9 +68,10 @@ const StyledShoppingCartCant = styled.div`
   font-size: 2.133vw;
   font-weight: bold;
   line-height: 5vw;
+  text-align: center;
 `;
 
-const Header = props => {
+export const Header = props => {
   return (
     <StyledHeader primaryColor={props.primaryColor}>
       <StyledDivCenter>
@@ -93,5 +94,3 @@ const Header = props => {
     </StyledHeader>
   );
 };
-
-export default Header;

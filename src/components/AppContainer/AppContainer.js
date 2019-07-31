@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Catalog from "./catalog";
-import Header from "./header";
+import { findById } from "./../../utils/findById"
+import { Catalog } from "./Catalog";
+import { Header } from "./Header";
 
 const initialState = {
   shoppingCart: {
@@ -17,15 +18,12 @@ const initialState = {
   }
 };
 
-class Container extends Component {
+export class AppContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = initialState;
   }
-
-  findProductById = (array, productId) =>
-    array.find(product => product.id === productId);
 
   addProductsToCart = (productId, cant) => {
     let currentCant, currentPrice, newProductList;
@@ -54,7 +52,7 @@ class Container extends Component {
       };
     } else {
       if (parseInt(cant) === 0) {
-        const currentProduct = this.findProductById(
+        const currentProduct = findById(
           this.state.shoppingCart.productList,
           productId
         );
@@ -91,7 +89,7 @@ class Container extends Component {
   };
 
   addProductToCart = productId => {
-    let productToAdd = this.findProductById(
+    let productToAdd = findById(
       this.state.shoppingCart.productList,
       productId
     );
@@ -111,7 +109,7 @@ class Container extends Component {
         productList: newProductList
       };
     } else {
-      productToAdd = this.findProductById(
+      productToAdd = findById(
         this.state.catalog.productList,
         productId
       );
@@ -128,7 +126,7 @@ class Container extends Component {
   };
 
   removeProductFromCart = productId => {
-    let productToAdd = this.findProductById(
+    let productToAdd = findById(
       this.state.shoppingCart.productList,
       productId
     );
@@ -234,12 +232,9 @@ class Container extends Component {
           addSeveralProducts={this.handleAddSeveral}
           addProduct={this.handleAddOne}
           removeProduct={this.handleRemoveOne}
-          findProductById={this.findProductById}
           primaryColor={this.state.style.primaryColor}
         />
       </div>
     );
   }
 }
-
-export default Container;

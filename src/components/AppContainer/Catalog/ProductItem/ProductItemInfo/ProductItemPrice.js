@@ -16,7 +16,7 @@ const StyledOriginalPrice = styled.span`
   text-decoration: line-through;
 `;
 
-const ProductPrice = props => {
+export const ProductItemPrice = props => {
   return props.discount !== 0 ? (
     <StyledProductPrice primaryColor={props.primaryColor}>
       <StyledOriginalPrice> ${((props.originalPrice).toFixed(2)).replace('.', ',')} </StyledOriginalPrice>
@@ -28,5 +28,3 @@ const ProductPrice = props => {
     </StyledProductPrice>
   );
 };
-
-export default ProductPrice;

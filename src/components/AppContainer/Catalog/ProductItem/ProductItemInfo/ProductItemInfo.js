@@ -1,14 +1,14 @@
 import React from "react";
 //import styled from "styled-components";
-import ProductName from "./productName";
-import ProductPrice from "./productPrice";
-import AddToCart from "./addToCart";
+import { ProductItemName } from "./ProductItemName";
+import { ProductItemPrice } from "./ProductItemPrice";
+import { AddToCart } from "./AddToCart";
 
-const ProductInfo = props => {
+export const ProductItemInfo = props => {
   return (
     <div>
-      <ProductName name={props.name} />
-      <ProductPrice
+      <ProductItemName name={props.name} />
+      <ProductItemPrice
         primaryColor={props.primaryColor}
         discount={props.discount}
         originalPrice={props.originalPrice}
@@ -25,5 +25,3 @@ const ProductInfo = props => {
     </div>
   );
 };
-
-export default ProductInfo;
