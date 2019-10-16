@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { findById } from "./../../utils/findById"
+import { BrowserRouter,Switch, Route } from "react-router-dom";
+import { findById } from "./../../utils/findById";
 import { Catalog } from "./Catalog";
 import { Header } from "./Header";
+import { ProductItem } from "./Catalog/ProductItem"
 
 const initialState = {
   shoppingCart: {
+    visible: false,
     cant: 0,
     productList: [],
     total: 0
@@ -78,7 +81,7 @@ export class AppContainer extends Component {
             return product;
           }
         });
-  
+
         return {
           price: currentPrice * (cant - currentCant),
           cant: cant - currentCant,
@@ -89,30 +92,26 @@ export class AppContainer extends Component {
   };
 
   addProductToCart = productId => {
-    let productToAdd = findById(
-      this.state.shoppingCart.productList,
-      productId
-    );
+    let productToAdd = findById(this.state.shoppingCart.productList, productId);
 
     if (productToAdd) {
-      const newProductList = this.state.shoppingCart.productList.map(product => {
-        if (product.id === productId) {
-          product.cant = parseInt(product.cant + 1);
-          return product;
-        } else {
-          return product;
+      const newProductList = this.state.shoppingCart.productList.map(
+        product => {
+          if (product.id === productId) {
+            product.cant = parseInt(product.cant + 1);
+            return product;
+          } else {
+            return product;
+          }
         }
-      });
+      );
 
       return {
         price: productToAdd.price,
         productList: newProductList
       };
     } else {
-      productToAdd = findById(
-        this.state.catalog.productList,
-        productId
-      );
+      productToAdd = findById(this.state.catalog.productList, productId);
       productToAdd.cant = 1;
       const newProductList = this.state.shoppingCart.productList.concat(
         productToAdd
@@ -126,10 +125,7 @@ export class AppContainer extends Component {
   };
 
   removeProductFromCart = productId => {
-    let productToAdd = findById(
-      this.state.shoppingCart.productList,
-      productId
-    );
+    let productToAdd = findById(this.state.shoppingCart.productList, productId);
     if (productToAdd) {
       if (productToAdd.cant === 1) {
         const newProductList = this.state.shoppingCart.productList.filter(
@@ -174,7 +170,7 @@ export class AppContainer extends Component {
 
   handleAddOne = productId => {
     const { shoppingCart } = this.state,
-      response = this.addProductToCart(productId)
+      response = this.addProductToCart(productId);
     console.log("handleAddOne - response");
     console.log(response);
     this.setState({
@@ -188,7 +184,7 @@ export class AppContainer extends Component {
 
   handleRemoveOne = productId => {
     const { shoppingCart } = this.state,
-      response = this.removeProductFromCart(productId)
+      response = this.removeProductFromCart(productId);
     this.setState({
       shoppingCart: {
         cant: shoppingCart.cant - 1,
@@ -197,6 +193,24 @@ export class AppContainer extends Component {
       }
     });
   };
+
+  showShoppingCart = () => {
+    this.setState({
+      shoppingCart: {
+        ...this.state.shoppingCart,
+        visible: true
+      }
+    })
+  }
+
+  hideShoppingCart = () => {
+    this.setState({
+      shoppingCart: {
+        ...this.state.shoppingCart,
+        visible: false
+      }
+    })
+  }
 
   loadProductList = async () => {
     const response = await fetch("https://challenge-api.aerolab.co/products"),
@@ -210,6 +224,7 @@ export class AppContainer extends Component {
   };
 
   componentDidMount() {
+    console.log('Component did mount, loadProductList')
     this.loadProductList();
   }
 
@@ -218,23 +233,67 @@ export class AppContainer extends Component {
       shoppingCart = this.state.shoppingCart;
     console.log("render() - this.state.shoppingCart");
     console.log(shoppingCart);
+
     return (
-      <div>
+      <BrowserRouter>
         <Header
           primaryColor={this.state.style.primaryColor}
+          showShoppingCart={this.showShoppingCart}
+          hideShoppingCart={this.hideShoppingCart}
+          shoppingCart={this.state.shoppingCart}
           total={this.state.shoppingCart.total}
           cant={this.state.shoppingCart.cant}
         />
-        <Catalog
-          loading={catalog.loading}
-          productList={catalog.productList}
-          shoppingCart={shoppingCart}
-          addSeveralProducts={this.handleAddSeveral}
-          addProduct={this.handleAddOne}
-          removeProduct={this.handleRemoveOne}
-          primaryColor={this.state.style.primaryColor}
-        />
-      </div>
+        <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Catalog
+                  loading={catalog.loading}
+                  productList={catalog.productList}
+                  shoppingCart={shoppingCart}
+                  addSeveralProducts={this.handleAddSeveral}
+                  addProduct={this.handleAddOne}
+                  removeProduct={this.handleRemoveOne}
+                  primaryColor={this.state.style.primaryColor}
+                />
+              )}
+            />
+            <Route path='/product/:id' render={({match}) => {
+              console.log('*** ProductItem logs ***')
+              console.log(this.state)
+              const productMatched = this.state.catalog.productList.find(product => product.id === match.params.id)
+              const isInShoppingCart = findById(
+                this.state.shoppingCart.productList,
+                match.params.id
+              );
+              console.log('product', productMatched)
+              if (this.state.catalog.productList.length === 0) {
+                return(<div>Loading...</div>)
+              }
+
+              return (<ProductItem
+              key={productMatched.id}
+              id={productMatched.id}
+              photo={productMatched.photo}
+              originalPrice={productMatched.originalPrice}
+              price={productMatched.price}
+              discount={Math.round(
+                ((productMatched.originalPrice - productMatched.price) * 100) /
+                  productMatched.originalPrice
+              )}
+              name={productMatched.name}
+              brand={productMatched.brand}
+              cant={isInShoppingCart ? isInShoppingCart.cant : 0}
+              addSeveralProducts={this.handleAddSeveral}
+              addProduct={this.handleAddOne}
+              removeProduct={this.handleRemoveOne}
+              primaryColor={this.state.primaryColor}
+              />)
+            }} />
+        </Switch>
+        </BrowserRouter>
     );
   }
 }

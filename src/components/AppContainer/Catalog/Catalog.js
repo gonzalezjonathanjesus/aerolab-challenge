@@ -10,13 +10,13 @@ const StyledCatalog = styled.div`
 
 const StyledTitle = styled.div`
   width: 100%;
-  padding: 4.933vw 4.267vw;
-  padding-bottom: 4.267vw;
+  padding: 2% 5%;
+  padding-bottom: 1%;
   box-sizing: border-box;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 6.4vw;
-  line-height: 7.733vw;
+  font-size: 24px;
+  line-height: 29px;
   text-align: left;
 `;
 
@@ -25,7 +25,7 @@ const StyledProductList = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  padding: 0 2.8vw;
+  padding: 0 5%;
   box-sizing: border-box;
 `;
 
