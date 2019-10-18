@@ -6,10 +6,11 @@ const Header = styled.header`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: fixed;
   width: 100%;
   height: 58px;
   padding: 13px 19px;
+  background-color: #FFFFFF;
   box-sizing: border-box;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.04), inset 0 -1px 0 0 rgba(0,0,0,0.12);
   z-index: 2;

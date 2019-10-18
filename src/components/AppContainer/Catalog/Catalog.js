@@ -5,12 +5,13 @@ import  { ProductItem } from "./ProductItem";
 //import Card from "react-bootstrap/Card";
 
 const StyledCatalog = styled.div`
+  padding-top: 58px;
   background-color: #f5f5f5;
 `;
 
 const StyledTitle = styled.div`
   width: 100%;
-  padding: 2% 5%;
+  padding: 5.5% 5%;
   padding-bottom: 1%;
   box-sizing: border-box;
   font-family: Roboto;

@@ -163,7 +163,8 @@ export class AppContainer extends Component {
       shoppingCart: {
         cant: shoppingCart.cant + resultado.cant,
         productList: resultado.productList,
-        total: shoppingCart.total + resultado.price
+        total: shoppingCart.total + resultado.price,
+        visible: this.state.shoppingCart.visible
       }
     });
   };
@@ -177,7 +178,8 @@ export class AppContainer extends Component {
       shoppingCart: {
         cant: shoppingCart.cant + 1,
         productList: response.productList,
-        total: shoppingCart.total + response.price
+        total: shoppingCart.total + response.price,
+        visible: this.state.shoppingCart.visible
       }
     });
   };
@@ -189,7 +191,8 @@ export class AppContainer extends Component {
       shoppingCart: {
         cant: shoppingCart.cant - 1,
         productList: response.productList,
-        total: shoppingCart.total - response.price
+        total: shoppingCart.total - response.price,
+        visible: this.state.shoppingCart.visible
       }
     });
   };
@@ -241,6 +244,7 @@ export class AppContainer extends Component {
           showShoppingCart={this.showShoppingCart}
           hideShoppingCart={this.hideShoppingCart}
           shoppingCart={this.state.shoppingCart}
+          removeProductFromCart={this.handleRemoveOne}
           total={this.state.shoppingCart.total}
           cant={this.state.shoppingCart.cant}
         />
